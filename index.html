@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<!-- Тексты ниже — русские значения по умолчанию; на старте их переписывает
+     applyStaticI18n() по атрибутам data-i18n* (см. src/ui/i18n-dom.js) -->
+<title data-i18n="meta.title">От человека до края Вселенной</title>
+<meta name="description" data-i18n-attr="content:meta.desc" content="Логарифмический зум сквозь 27 порядков масштаба: от ладони до наблюдаемой Вселенной. Настоящие расстояния, настоящие каталоги звёзд и галактик." />
+<meta name="theme-color" content="#000000" />
+<meta property="og:title" data-i18n-attr="content:meta.ogTitle" content="От человека до края Вселенной" />
+<meta property="og:description" data-i18n-attr="content:meta.ogDesc" content="27 порядков масштаба за три минуты. Или сколько захочешь — крути сам." />
+<meta property="og:type" content="website" />
+  <script type="module" crossorigin src="./assets/index-BmsyeqBG.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-C2zjSU9r.css">
+</head>
+<body>
+  <canvas id="gl"></canvas>
+
+  <!-- Загрузка -->
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-title" data-i18n="loader.title">Собираем Вселенную</div>
+      <div class="loader-bar"><i></i></div>
+      <div class="loader-note" id="loader-note" data-i18n="loader.note">звёзды, галактики, пустота</div>
+    </div>
+  </div>
+
+  <!-- Стартовый экран: нужен жест пользователя, иначе браузер не даст звук -->
+  <div id="start" hidden>
+    <div class="start-inner">
+      <h1 data-i18n-html="start.h1">От человека<br />до края Вселенной</h1>
+      <p class="start-sub" data-i18n="start.sub">27 порядков масштаба. Настоящие расстояния.</p>
+      <button id="btn-start" class="btn-primary" data-i18n="start.go">Поехали</button>
+      <button id="btn-free" class="btn-ghost" data-i18n="start.free">Крутить самому</button>
+      <p class="start-foot" data-i18n="start.foot">Со звуком — сильно лучше. Наушники не помешают.</p>
+    </div>
+  </div>
+
+  <!-- Крупный титр (пролог и финал) -->
+  <div id="hero"><span></span></div>
+
+  <!-- Показания масштаба -->
+  <div id="hud-scale">
+    <div class="scale-row">
+      <div class="scale-label" data-i18n="hud.frameRadius">радиус кадра</div>
+      <div class="scale-value" id="scale-value">1,7 м</div>
+    </div>
+    <div class="scale-row dim">
+      <div class="scale-label" data-i18n="hud.lightTravel">свет идёт</div>
+      <div class="scale-value small" id="light-value">6 нс</div>
+    </div>
+    <div class="scale-exp" id="scale-exp">10⁰·²³ м</div>
+  </div>
+
+  <!-- Карточка остановки -->
+  <div id="hud-card">
+    <div class="card-title" id="card-title"></div>
+    <div class="card-size" id="card-size"></div>
+    <div class="card-fact" id="card-fact"></div>
+  </div>
+
+  <!-- Лестница масштабов сбоку -->
+  <div id="ladder"><div class="ladder-line"></div><div class="ladder-marks"></div><div class="ladder-cursor"></div></div>
+
+  <!-- Прогресс тура -->
+  <div id="progress"><div class="pg-fill"></div><div class="pg-stops"></div></div>
+
+  <!-- Управление -->
+  <div id="controls">
+    <button id="btn-play" data-i18n-attr="title:ctl.play;aria-label:ctl.playAria" title="Пауза / продолжить" aria-label="Пауза">❚❚</button>
+    <button id="btn-sound" data-i18n-attr="title:ctl.sound;aria-label:ctl.sound" title="Звук" aria-label="Звук">♪</button>
+    <button id="btn-mode" data-i18n-attr="title:ctl.mode;aria-label:ctl.mode" title="Свободный режим" aria-label="Свободный режим">✥</button>
+    <button id="btn-lang" data-i18n-attr="title:ctl.lang;aria-label:ctl.lang" title="Язык" aria-label="Язык">RU</button>
+    <button id="btn-info" data-i18n-attr="title:ctl.info;aria-label:ctl.info" title="О проекте" aria-label="О проекте">i</button>
+  </div>
+
+  <div id="hint" data-i18n="hud.hint">колесо — зум · перетаскивание — поворот</div>
+
+  <!-- О проекте -->
+  <div id="about" hidden>
+    <div class="about-inner">
+      <button id="about-close" data-i18n-attr="aria-label:ctl.close" aria-label="Закрыть">×</button>
+      <h2 data-i18n="about.h2">Что здесь настоящее</h2>
+      <ul>
+        <li data-i18n-html="about.li1"><b>Расстояния</b> — настоящие: большие полуоси орбит, параллаксы звёзд, красные смещения галактик.</li>
+        <li data-i18n-html="about.li2"><b>Звёзды</b> — каталог HYG (Hipparcos + Yale + Gliese), около 118 тысяч штук с реальными координатами и цветами по индексу B−V.</li>
+        <li data-i18n-html="about.li3"><b>Галактики</b> — каталог 2MRS, 44 599 объектов ближней Вселенной.</li>
+        <li data-i18n-html="about.li4"><b>Размеры планет</b> — увеличены. При кадре в две астрономические единицы Земля занимает четыре стотысячных кадра, то есть ничего. Иначе Солнечная система выглядела бы пустым чёрным кругом.</li>
+        <li data-i18n-html="about.li5"><b>Кадр с Землёй, Луной и Солнцем</b> — постановочный: настоящее Солнце с орбиты Земли — диск в полградуса, как Луна с балкона. Направление света честное, преувеличены размер и близость.</li>
+        <li data-i18n-html="about.li6"><b>Млечный Путь, космическая паутина</b> — процедурные модели по опубликованным параметрам: длина шкалы диска 2,6 кпк, Солнце в 8,178 кпк от центра, вещество в нитях и узлах, объём в пустотах.</li>
+      </ul>
+      <p class="about-src" id="about-src"></p>
+      <p class="about-foot" data-i18n="about.foot">Сделано на WebGL2, звук синтезируется в браузере в реальном времени и привязан к логарифму масштаба.</p>
+    </div>
+  </div>
+
+</body>
+</html>
