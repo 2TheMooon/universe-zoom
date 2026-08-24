@@ -25,6 +25,35 @@
       <div class="loader-note" id="loader-note" data-i18n="loader.note">звёзды, галактики, пустота</div>
     </div>
   </div>
+  <script>
+    // Лоадер виден ДО загрузки бандла — переводим его мгновенно, не дожидаясь
+    // applyStaticI18n(). Определение языка — копия логики src/data/i18n.js
+    // (?lang → сохранённый выбор → язык браузера, СНГ → ru). Словарь только
+    // для этого экрана; всё остальное переведёт бандл как обычно.
+    (function () {
+      var L = {
+        ru: ['Собираем Вселенную', 'звёзды, галактики, пустота'],
+        en: ['Assembling the Universe', 'stars, galaxies, emptiness'],
+        es: ['Montando el Universo', 'estrellas, galaxias, vacío'],
+        pt: ['Montando o Universo', 'estrelas, galáxias, vazio'],
+        hi: ['ब्रह्मांड जोड़ा जा रहा है', 'तारे, आकाशगंगाएँ, सन्नाटा'],
+        zh: ['正在组装宇宙', '恒星、星系、虚空'],
+      }
+      var CIS = ['ru', 'uk', 'be', 'kk', 'ky', 'uz', 'tg', 'tk', 'hy', 'az']
+      function base(tag) { return String(tag || '').toLowerCase().split(/[-_]/)[0] }
+      var lang = base(new URLSearchParams(location.search).get('lang'))
+      try { lang = lang || base(localStorage.getItem('uz.lang')) } catch (e) {}
+      if (!L[lang]) {
+        var nav = base(navigator.language)
+        lang = L[nav] ? nav : (CIS.indexOf(nav) >= 0 ? 'ru' : 'en')
+      }
+      if (lang !== 'ru') {
+        document.documentElement.lang = lang
+        document.querySelector('.loader-title').textContent = L[lang][0]
+        document.getElementById('loader-note').textContent = L[lang][1]
+      }
+    })()
+  </script>
 
   <!-- Стартовый экран: нужен жест пользователя, иначе браузер не даст звук -->
   <div id="start" hidden>
