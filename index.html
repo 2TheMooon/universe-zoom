@@ -145,5 +145,17 @@
     </div>
   </div>
 
+  <script>
+    // GoatCounter: приватная статистика посещений (дашборд только по логину),
+    // на странице невидим, куки не ставит. В capture-рендерах не считаем —
+    // это наши же браузеры со скриншотами кадров, не зрители.
+    if (!new URLSearchParams(location.search).has('capture')) {
+      var gc = document.createElement('script')
+      gc.async = true
+      gc.setAttribute('data-goatcounter', 'https://2themoon.goatcounter.com/count')
+      gc.src = 'https://gc.zgo.at/count.js'
+      document.body.appendChild(gc)
+    }
+  </script>
 </body>
 </html>
