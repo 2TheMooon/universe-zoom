@@ -11,8 +11,8 @@
 <meta property="og:title" data-i18n-attr="content:meta.ogTitle" content="От человека до края Вселенной" />
 <meta property="og:description" data-i18n-attr="content:meta.ogDesc" content="27 порядков масштаба за три минуты. Или сколько захочешь — крути сам." />
 <meta property="og:type" content="website" />
-  <script type="module" crossorigin src="./assets/index-D2v59Pnh.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-C2zjSU9r.css">
+  <script type="module" crossorigin src="./assets/index-BWOEvQie.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-w1X8_Nc_.css">
 </head>
 <body>
   <canvas id="gl"></canvas>
@@ -105,6 +105,27 @@
   </div>
 
   <div id="hint" data-i18n="hud.hint">колесо — зум · перетаскивание — поворот</div>
+
+  <!-- Донат: полупрозрачная кнопка в правом верхнем углу -->
+  <button id="donate-btn" data-i18n="donate.btn">Поддержать ♥</button>
+  <div id="donate" hidden>
+    <div class="donate-inner">
+      <button id="donate-close" data-i18n-attr="aria-label:ctl.close" aria-label="Закрыть">×</button>
+      <h2 data-i18n="donate.h2">Поддержать проект</h2>
+      <p class="dn-note" data-i18n="donate.note">Крипта — напрямую автору:</p>
+      <div class="dn-row">
+        <span class="dn-cur">BTC</span>
+        <code>1tp9v6aCyMobu1fMcn7BXb4C7ZjdKW7Jb</code>
+        <button class="dn-copy" data-addr="1tp9v6aCyMobu1fMcn7BXb4C7ZjdKW7Jb" data-i18n="donate.copy">Копировать</button>
+      </div>
+      <div class="dn-row">
+        <span class="dn-cur">ETH</span>
+        <code>0x90F080Ae4218A4c088BBF00A74af9850d1773366</code>
+        <button class="dn-copy" data-addr="0x90F080Ae4218A4c088BBF00A74af9850d1773366" data-i18n="donate.copy">Копировать</button>
+      </div>
+      <p class="dn-foot" data-i18n="donate.foot">Спасибо! Донаты ускоряют новые ролики.</p>
+    </div>
+  </div>
 
   <!-- О проекте -->
   <div id="about" hidden>
